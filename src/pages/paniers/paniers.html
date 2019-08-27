@@ -8,5 +8,24 @@
 
 
 <ion-content padding>
-
-</ion-content>
+    <table id="restoTable" class="table table-striped tablesorter" mfSortBy="createdAt" [mfData]="finalPaniers" #mf="mfDataTable">
+        <thead>
+            <tr>
+              <th scope="col"><mfDefaultSorter by="fName">Nombre</mfDefaultSorter></th>
+              <th scope="col"><mfDefaultSorter by="sName">Apellido</mfDefaultSorter></th>
+              <th scope="col"><mfDefaultSorter by="restoName">Restaurante</mfDefaultSorter></th>
+              <th scope="col"><mfDefaultSorter by="orderDate">Fecha del Pedido</mfDefaultSorter></th>
+              <th scope="col"><mfDefaultSorter by="status">Status</mfDefaultSorter></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of mf.data">
+                <td>{{item.fName}}</td>
+                <td>{{item.sName}}</td>
+                <td>{{item.restoName}}</td>
+                <td>{{item.orderDate}}</td>
+                <td>{{item.status}}</td>
+            </tr>
+          </tbody>
+    </table>
+  </ion-content>

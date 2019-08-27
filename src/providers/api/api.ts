@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ApiProvider {
 
-  apiBaseUrl = "http://localhost:8080/api/";
+  apiBaseUrl = "http://api.listoo.co/api/";
+  //apiBaseUrl = "http://localhost:8080/api/";
   token = "";
 
   constructor(public http: HttpClient) {
@@ -40,10 +41,9 @@ export class ApiProvider {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer '+ this.token
     });
-    console.log(headers);
     let options = {headers: headers}
     return new Promise((resolve, reject) => {
-      this.http.get(this.apiBaseUrl+"users/all/", options).subscribe(data => {
+      this.http.get(this.apiBaseUrl+"users/all", options).subscribe(data => {
         resolve(data);
       }, err => {
         console.log(err);
@@ -98,6 +98,21 @@ export class ApiProvider {
     });
   }
 
+  apiLoadResto(userId : number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+this.token,
+    });
+    let options = {headers: headers}
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiBaseUrl+"users/"+userId, options).subscribe(data => {
+        resolve(data);
+      }, err => {
+        console.log(err);
+      });
+    });
+  }
+
 
   //Orders
 
@@ -130,6 +145,84 @@ export class ApiProvider {
       });
     });
   }
+
+  apiGetCommandesByAnnonce(id : number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+this.token,
+    });
+    let options = {headers: headers}
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiBaseUrl+"commandes/annonce/"+id, options).subscribe(data => {
+        resolve(data);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+
+  apiGetCommandesByAnnonceToday(id : number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+this.token,
+    });
+    let options = {headers: headers}
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiBaseUrl+"commandes/"+id, options).subscribe(data => {
+        resolve(data);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+
+  apiGetCommandesByUser(id : number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+this.token,
+    });
+    let options = {headers: headers}
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiBaseUrl+"commandes/user/"+id, options).subscribe(data => {
+        resolve(data);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+
+  //Annonces
+  apiGetAnnonce(id : number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+this.token,
+    });
+    let options = {headers: headers}
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiBaseUrl+"annonce/"+id, options).subscribe(data => {
+        resolve(data);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+
+  apiGetAnnonceByResto(idResto : number) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer '+this.token,
+    });
+    let options = {headers: headers}
+    return new Promise((resolve, reject) => {
+      this.http.get(this.apiBaseUrl+"annonce/resto/admin/"+idResto, options).subscribe(data => {
+        resolve(data);
+      }, err => {
+        reject(err);
+      });
+    });
+  }
+
+  
 
 
 }

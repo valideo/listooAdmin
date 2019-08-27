@@ -1,3 +1,4 @@
+import { DetailRestoPage } from './../pages/detail-resto/detail-resto';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -14,6 +15,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ApiProvider } from '../providers/api/api';
 import { HttpClientModule } from '@angular/common/http';
 import { NativeStorage } from '@ionic-native/native-storage';
+import {DataTableModule} from "angular-6-datatable";
 
 @NgModule({
   declarations: [
@@ -22,12 +24,14 @@ import { NativeStorage } from '@ionic-native/native-storage';
     UsersPage,
     HomePage,
     TabsPage,
-    PaniersPage
+    PaniersPage,
+    DetailRestoPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    DataTableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -36,7 +40,8 @@ import { NativeStorage } from '@ionic-native/native-storage';
     UsersPage,
     HomePage,
     TabsPage,
-    PaniersPage
+    PaniersPage,
+    DetailRestoPage
   ],
   providers: [
     StatusBar,

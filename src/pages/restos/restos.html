@@ -7,5 +7,29 @@
 </ion-header>
 
 <ion-content padding>
-
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <table id="restoTable" class="table table-striped tablesorter" mfSortBy="createdAt" [mfData]="finalResto" #mf="mfDataTable">
+      <thead>
+          <tr>
+            <th scope="col"><mfDefaultSorter by="fName">Nombre</mfDefaultSorter></th>
+            <th scope="col"><mfDefaultSorter by="sName">Apellido</mfDefaultSorter></th>
+            <th scope="col"><mfDefaultSorter by="restoName">Restaurante</mfDefaultSorter></th>
+            <th scope="col"><mfDefaultSorter by="createdAt">Fecha de Inscripción</mfDefaultSorter></th>
+            <th scope="col"><mfDefaultSorter by="isActive">Paquete publicado hoy</mfDefaultSorter></th>
+            <th scope="col"><mfDefaultSorter by="nbReserved">Número de Paquetes vendidos</mfDefaultSorter></th>
+            <th scope="col"><mfDefaultSorter by="restoType">Tipo de establecimiento</mfDefaultSorter></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of mf.data" (click)="goDetail(item)">
+              <td>{{item.fName}}</td>
+              <td>{{item.sName}}</td>
+              <td>{{item.restoName}}</td>
+              <td>{{item.createdAt}}</td>
+              <td>{{item.isActive}}</td>
+              <td>{{item.nbReserved}}</td>
+              <td>{{item.restoType}}</td>
+          </tr>
+        </tbody>
+  </table>
 </ion-content>

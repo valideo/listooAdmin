@@ -1,6 +1,6 @@
 import { ApiProvider } from '../../providers/api/api';
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, Events } from 'ionic-angular';
 import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
@@ -18,8 +18,12 @@ export class HomePage {
   paniersNew : number = 0;
   orders : number = 0;
   ordersNew : number = 0;
+  money : number = 0;
+  moneyNew : number = 0;
+  moneyString : string = this.money.toLocaleString('es-CO');
+  moneyNewString : string = this.moneyNew.toLocaleString('es-CO');
 
-  constructor(public navCtrl: NavController, private apiProvider : ApiProvider, private alertCtrl : AlertController, private nativeStorage: NativeStorage) {
+  constructor(public navCtrl: NavController, private apiProvider : ApiProvider, private alertCtrl : AlertController, private nativeStorage: NativeStorage, private events : Events) {
 
     this.nativeStorage.getItem('listooAdminLogin')
     .then(
@@ -30,23 +34,33 @@ export class HomePage {
         this.presentPromptLogin();
       }
     );
+
+    events.subscribe('moneyValue', () => {
+      this.moneyString = '$ '+this.money.toLocaleString('es-CO');
+      this.moneyNewString = '$ '+this.moneyNew.toLocaleString('es-CO');
+    });
+  }
+
+  ionViewWillEnter(){
+   this.loadData();
   }
 
  
   presentPromptLogin() {
     let alert = this.alertCtrl.create({
       title: 'Admin Login',
+      enableBackdropDismiss: false,
       inputs: [
         {
           name: 'username',
           placeholder: 'Email',
-          value : 'admin@listoo.co'
+          value : ''
         },
         {
           name: 'password',
           placeholder: 'Password',
           type: 'password',
-          value : 'test1234'
+          value : ''
         }
       ],
       buttons: [
@@ -123,6 +137,55 @@ export class HomePage {
       });
     }, err =>{
       console.log(err);
+    });
+    this.loadMoney();
+  }
+
+
+  loadMoney(){
+    this.money = 0;
+    this.moneyNew = 0;
+    this.apiProvider.loadAllOrders().then(data =>{
+      var orders : any = [];
+      orders = data;
+        orders.forEach(element => {
+        this.apiProvider.apiGetAnnonce(parseInt(element["idAnnonce"])).then(dataAnnonce =>{
+          this.apiProvider.apiLoadResto(dataAnnonce["idRestoUser"]).then(dataRestoUser =>{
+            
+            var finalPrice = (element["qtite"] * dataAnnonce["price"]*0.3); 
+            this.money += finalPrice;
+            this.events.publish('moneyValue');
+          }, err =>{
+
+          });
+        }, err =>{
+
+        });
+      });
+    }, err =>{
+
+    });
+
+    this.apiProvider.loadNewOrders().then(data =>{
+      var orders : any = [];
+      orders = data;
+        orders.forEach(element => {
+        this.apiProvider.apiGetAnnonce(parseInt(element["idAnnonce"])).then(dataAnnonce =>{
+          this.apiProvider.apiLoadResto(dataAnnonce["idRestoUser"]).then(dataRestoUser =>{
+            
+            var finalPrice = (element["qtite"] * dataAnnonce["price"]*0.3); 
+            this.moneyNew += finalPrice;
+            this.events.publish('moneyValue');
+
+          }, err =>{
+
+          });
+        }, err =>{
+
+        });
+      });
+    }, err =>{
+
     });
   }
 

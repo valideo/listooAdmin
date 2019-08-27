@@ -6,12 +6,24 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
-      @ionicframework
-    </ion-item>
-  </ion-list>
-</ion-content>
+<ion-content padding>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <table id="restoTable" class="table table-striped tablesorter" mfSortBy="createdAt" [mfData]="finalUsers" #mf="mfDataTable">
+        <thead>
+            <tr>
+              <th scope="col"><mfDefaultSorter by="fName">Nombre</mfDefaultSorter></th>
+              <th scope="col"><mfDefaultSorter by="sName">Apellido</mfDefaultSorter></th>
+              <th scope="col"><mfDefaultSorter by="createdAt">Fecha de Inscripción</mfDefaultSorter></th>
+              <th scope="col"><mfDefaultSorter by="nbReserved">Número de Paquetes pedidos</mfDefaultSorter></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of mf.data">
+                <td>{{item.fName}}</td>
+                <td>{{item.sName}}</td>
+                <td>{{item.createdAt}}</td>
+                <td>{{item.nbReserved}}</td>
+            </tr>
+          </tbody>
+    </table>
+  </ion-content>

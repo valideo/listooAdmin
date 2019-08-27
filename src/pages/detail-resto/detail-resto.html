@@ -1,0 +1,49 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{restoName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-grid>
+        <ion-row>
+          <ion-col class="col-xs-12 col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4" col-xs-12 col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4></ion-col>
+          <ion-col class="col-xs-12 col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4" col-xs-12 col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4>
+            <ion-card>
+              <div class="imgWrap">
+                  <img src="{{picUrl}}"/>
+                </div>
+              <div class="card-title">{{restoName}}</div>
+              <div class="card-subtitle">Inscripción el {{registerDate}}</div>
+            </ion-card>
+            <ion-list>
+                <ion-list-header>
+                    INFORMACIÓN :
+                </ion-list-header>
+                <ion-item>Nombre: {{fName}}</ion-item>
+                <ion-item>Apellido: {{sName}}</ion-item>
+                <ion-item>Email: {{email}}</ion-item>
+                <ion-item>Teléfono: {{tel}}</ion-item>
+                <ion-item>Dirección: {{address}}</ion-item>
+                <ion-item>Tipo de restaurante: {{restoType}}</ion-item>
+
+                <ion-list-header>
+                    Paquetes y pedidos del día : Precio - $ {{price}}
+                </ion-list-header>
+                <ion-item>Número de paquetes disponibles: {{leftToday}}</ion-item>
+                <ion-item>Número de paquetes reservados: {{reservedToday}}</ion-item>
+                <ion-item>Total de ventas de paquetes: $ {{totalToday}}</ion-item>
+
+                <ion-list-header>
+                    Resumen de la actividad :
+                </ion-list-header>
+                <ion-item>Número de paquetes vendidos : {{totalOrders}}</ion-item>
+                <ion-item>Total de ventas de paquetes: $ {{totalResto}}</ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+</ion-content>
