@@ -27,7 +27,7 @@ export class UsersPage {
     this.apiProvider.loadAllUsers().then(data =>{
       this.users = data;
       this.users.forEach(element => {
-        var createdAt = new Date(element["createdAt"]).toLocaleDateString();
+        var createdAt = new Date(element["createdAt"]);
 
           this.apiProvider.apiGetCommandesByUser(element["id"]).then(dataCommandes =>{
             

@@ -21,6 +21,7 @@ export class RestosPage {
    this.loadData("");
   }
 
+
   loadData(val : string){
     this.restos = [];
     this.finalResto = [];
@@ -29,7 +30,7 @@ export class RestosPage {
       this.restos.forEach(element => {
         var alreadyPush = false;
         var restoType = this.getTypeName(element["restoType"]);
-        var createdAt = new Date(element["createdAt"]).toLocaleDateString();
+        var createdAt = new Date(element["createdAt"]);
         this.apiProvider.apiGetAnnonceByResto(element["id"]).then(dataAnnonce =>{
 
           if(dataAnnonce["isActive"])
@@ -141,6 +142,7 @@ export class RestosPage {
     console.log(val);
 
     this.loadData(val);
+    
   }
 
 }

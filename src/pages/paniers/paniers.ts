@@ -25,7 +25,7 @@ export class PaniersPage {
       this.paniers.forEach(element => {
 
         
-        var orderDate  = new Date(element["orderDateTime"]).toLocaleDateString();
+        var orderDate  = new Date(element["orderDateTime"]);
 
         this.apiProvider.apiGetAnnonce(element["idAnnonce"]).then(dataAnnonce =>{
           console.log(element);

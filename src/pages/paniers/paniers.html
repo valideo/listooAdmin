@@ -23,7 +23,7 @@
                 <td>{{item.fName}}</td>
                 <td>{{item.sName}}</td>
                 <td>{{item.restoName}}</td>
-                <td>{{item.orderDate}}</td>
+                <td>{{item.orderDate | date : 'dd/LL/yyyy - h:mm aa'}}</td>
                 <td>{{item.status}}</td>
             </tr>
           </tbody>

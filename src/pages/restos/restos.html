@@ -25,7 +25,7 @@
               <td>{{item.fName}}</td>
               <td>{{item.sName}}</td>
               <td>{{item.restoName}}</td>
-              <td>{{item.createdAt}}</td>
+              <td>{{item.createdAt | date : 'dd/LL/yyyy - h:mm aa'}}</td>
               <td>{{item.isActive}}</td>
               <td>{{item.nbReserved}}</td>
               <td>{{item.restoType}}</td>
